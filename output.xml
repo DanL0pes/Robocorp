@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.10.12 on win32)" generated="20231001 16:58:01.349" rpa="true" schemaversion="4">
+<suite id="s1" name="Tasks" source="c:\Users\danie\OneDrive\Documentos\Robocorp-main\exelcadrastrorobot\tasks.robot">
+<test id="s1-t1" name="Open the website" line="8">
+<kw name="Open website">
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>https://www.rpa-unlimited.com/youtube/robocorp-tutorial/</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20231001 16:58:04.295" level="INFO">====== WebDriver manager ======</msg>
+<msg timestamp="20231001 16:58:05.570" level="INFO">Downloaded webdriver to: C:\Users\danie\AppData\Local\robocorp\webdrivers\.wdm\drivers\chromedriver\win64\117.0.5938.92\chromedriver-win32/chromedriver.exe</msg>
+<msg timestamp="20231001 16:58:05.611" level="INFO">Webdriver version taken into use: ChromeDriver 117.0.5938.92 (67649b10b92bb182fba357831ef7dd6a1baa5648-refs/branch-heads/5938_62@{#14})
+</msg>
+<msg timestamp="20231001 16:58:06.856" level="INFO">Targeted browser version: 117.0.5938.92</msg>
+<msg timestamp="20231001 16:58:06.856" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20231001 16:58:07.991" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20231001 16:58:07.991" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: Webdriver executable 'chromedriver' is not in PATH (with disabled Selenium Manager)
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20231001 16:58:07.992" level="INFO">Opening url 'https://www.rpa-unlimited.com/youtube/robocorp-tutorial/'</msg>
+<status status="PASS" starttime="20231001 16:58:03.624" endtime="20231001 16:58:09.899"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:03.623" endtime="20231001 16:58:09.899"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:03.621" endtime="20231001 16:58:09.900"/>
+</test>
+<test id="s1-t2" name="Ler as companies do Excel e add para o website" line="11">
+<kw name="Preencher o form usando a data do Excel file">
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>exelCadrastroRobot/input.xlsx</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20231001 16:58:09.924" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x00000190B02FEE90&gt;</msg>
+<status status="PASS" starttime="20231001 16:58:09.904" endtime="20231001 16:58:09.925"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${companies}</var>
+<arg>header=True</arg>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20231001 16:58:09.926" level="INFO">Created table: Table(columns=['ID', 'Company Name', 'Contact Person', 'Address', 'Zipcode', 'City', 'Country', 'Telephone', 'Email'], rows=3)</msg>
+<msg timestamp="20231001 16:58:09.927" level="INFO">${companies} = Table(columns=['ID', 'Company Name', 'Contact Person', 'Address', 'Zipcode', 'City', 'Country', 'Telephone', 'Email'], rows=3)</msg>
+<status status="PASS" starttime="20231001 16:58:09.925" endtime="20231001 16:58:09.927"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20231001 16:58:09.928" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x00000190B02FEE90&gt;</msg>
+<status status="PASS" starttime="20231001 16:58:09.928" endtime="20231001 16:58:09.928"/>
+</kw>
+<for flavor="IN">
+<var>${company}</var>
+<value>@{companies}</value>
+<iter>
+<var name="${company}">{'ID': 1, 'Company Name': "Tom's Tech Academy", 'Contact Person': 'Thomas Janssen', 'Address': 'Long Street 1', 'Zipcode': '1234AA', 'City': 'Amsterdam', 'Country': 'Netherlands', 'Telephone': 1234567...</var>
+<kw name="Preencher e mandar form para todas company">
+<arg>${company}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>company-name</arg>
+<arg>${company}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:09.932" level="INFO">Typing text 'Tom's Tech Academy' into text field 'company-name'.</msg>
+<status status="PASS" starttime="20231001 16:58:09.931" endtime="20231001 16:58:10.093"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>company-contact</arg>
+<arg>${company}[Contact Person]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.095" level="INFO">Typing text 'Thomas Janssen' into text field 'company-contact'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.094" endtime="20231001 16:58:10.229"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>address</arg>
+<arg>${company}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.231" level="INFO">Typing text 'Long Street 1' into text field 'address'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.229" endtime="20231001 16:58:10.348"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>zipcode</arg>
+<arg>${company}[Zipcode]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.349" level="INFO">Typing text '1234AA' into text field 'zipcode'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.348" endtime="20231001 16:58:10.453"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>city</arg>
+<arg>${company}[City]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.455" level="INFO">Typing text 'Amsterdam' into text field 'city'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.454" endtime="20231001 16:58:10.561"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>country</arg>
+<arg>${company}[Country]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.562" level="INFO">Typing text 'Netherlands' into text field 'country'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.561" endtime="20231001 16:58:10.676"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>telephone</arg>
+<arg>${company}[Telephone]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.677" level="INFO">Typing text '12345678' into text field 'telephone'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.676" endtime="20231001 16:58:10.782"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>email</arg>
+<arg>${company}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.783" level="INFO">Typing text 'thomas@example.com' into text field 'email'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.782" endtime="20231001 16:58:10.908"/>
+</kw>
+<kw name="Submit Form" library="RPA.Browser.Selenium">
+<doc>Submits a form identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:10.909" level="INFO">Submitting form 'None'.</msg>
+<status status="PASS" starttime="20231001 16:58:10.908" endtime="20231001 16:58:11.408"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:09.930" endtime="20231001 16:58:11.408"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:09.929" endtime="20231001 16:58:11.409"/>
+</iter>
+<iter>
+<var name="${company}">{'ID': 2, 'Company Name': 'First Consulting', 'Contact Person': 'Jane Doe', 'Address': 'Diagon Alley 10', 'Zipcode': 5678, 'City': 'London', 'Country': 'UK', 'Telephone': 567891, 'Email': 'first@diago...</var>
+<kw name="Preencher e mandar form para todas company">
+<arg>${company}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>company-name</arg>
+<arg>${company}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:11.411" level="INFO">Typing text 'First Consulting' into text field 'company-name'.</msg>
+<status status="PASS" starttime="20231001 16:58:11.410" endtime="20231001 16:58:11.692"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>company-contact</arg>
+<arg>${company}[Contact Person]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:11.693" level="INFO">Typing text 'Jane Doe' into text field 'company-contact'.</msg>
+<status status="PASS" starttime="20231001 16:58:11.692" endtime="20231001 16:58:11.805"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>address</arg>
+<arg>${company}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:11.807" level="INFO">Typing text 'Diagon Alley 10' into text field 'address'.</msg>
+<status status="PASS" starttime="20231001 16:58:11.806" endtime="20231001 16:58:11.936"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>zipcode</arg>
+<arg>${company}[Zipcode]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:11.938" level="INFO">Typing text '5678' into text field 'zipcode'.</msg>
+<status status="PASS" starttime="20231001 16:58:11.937" endtime="20231001 16:58:12.036"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>city</arg>
+<arg>${company}[City]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:12.038" level="INFO">Typing text 'London' into text field 'city'.</msg>
+<status status="PASS" starttime="20231001 16:58:12.037" endtime="20231001 16:58:12.138"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>country</arg>
+<arg>${company}[Country]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:12.140" level="INFO">Typing text 'UK' into text field 'country'.</msg>
+<status status="PASS" starttime="20231001 16:58:12.139" endtime="20231001 16:58:12.234"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>telephone</arg>
+<arg>${company}[Telephone]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:12.235" level="INFO">Typing text '567891' into text field 'telephone'.</msg>
+<status status="PASS" starttime="20231001 16:58:12.234" endtime="20231001 16:58:12.335"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>email</arg>
+<arg>${company}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:12.336" level="INFO">Typing text 'first@diagonalley.uk' into text field 'email'.</msg>
+<status status="PASS" starttime="20231001 16:58:12.335" endtime="20231001 16:58:12.471"/>
+</kw>
+<kw name="Submit Form" library="RPA.Browser.Selenium">
+<doc>Submits a form identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:12.471" level="INFO">Submitting form 'None'.</msg>
+<status status="PASS" starttime="20231001 16:58:12.471" endtime="20231001 16:58:13.050"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:11.410" endtime="20231001 16:58:13.051"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:11.409" endtime="20231001 16:58:13.051"/>
+</iter>
+<iter>
+<var name="${company}">{'ID': 3, 'Company Name': "Jake's Cookie Company", 'Contact Person': 'Jake Anderson', 'Address': 'Under The Bridge 5', 'Zipcode': 4566, 'City': 'New York', 'Country': 'US', 'Telephone': 5345555, 'Emai...</var>
+<kw name="Preencher e mandar form para todas company">
+<arg>${company}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>company-name</arg>
+<arg>${company}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.053" level="INFO">Typing text 'Jake's Cookie Company' into text field 'company-name'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.052" endtime="20231001 16:58:13.202"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>company-contact</arg>
+<arg>${company}[Contact Person]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.203" level="INFO">Typing text 'Jake Anderson' into text field 'company-contact'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.202" endtime="20231001 16:58:13.328"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>address</arg>
+<arg>${company}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.329" level="INFO">Typing text 'Under The Bridge 5' into text field 'address'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.328" endtime="20231001 16:58:13.451"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>zipcode</arg>
+<arg>${company}[Zipcode]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.452" level="INFO">Typing text '4566' into text field 'zipcode'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.451" endtime="20231001 16:58:13.548"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>city</arg>
+<arg>${company}[City]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.550" level="INFO">Typing text 'New York' into text field 'city'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.549" endtime="20231001 16:58:13.653"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>country</arg>
+<arg>${company}[Country]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.654" level="INFO">Typing text 'US' into text field 'country'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.653" endtime="20231001 16:58:13.750"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>telephone</arg>
+<arg>${company}[Telephone]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.751" level="INFO">Typing text '5345555' into text field 'telephone'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.750" endtime="20231001 16:58:13.853"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>email</arg>
+<arg>${company}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.855" level="INFO">Typing text 'jake@thebridge.com' into text field 'email'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.854" endtime="20231001 16:58:13.981"/>
+</kw>
+<kw name="Submit Form" library="RPA.Browser.Selenium">
+<doc>Submits a form identified by ``locator``.</doc>
+<msg timestamp="20231001 16:58:13.982" level="INFO">Submitting form 'None'.</msg>
+<status status="PASS" starttime="20231001 16:58:13.982" endtime="20231001 16:58:14.567"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:13.052" endtime="20231001 16:58:14.568"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:13.051" endtime="20231001 16:58:14.568"/>
+</iter>
+<status status="PASS" starttime="20231001 16:58:09.929" endtime="20231001 16:58:14.568"/>
+</for>
+<status status="PASS" starttime="20231001 16:58:09.903" endtime="20231001 16:58:14.569"/>
+</kw>
+<status status="PASS" starttime="20231001 16:58:09.902" endtime="20231001 16:58:14.570"/>
+</test>
+<doc>Template robot main suite.</doc>
+<status status="PASS" starttime="20231001 16:58:01.359" endtime="20231001 16:58:14.572"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
